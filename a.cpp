@@ -97,9 +97,8 @@ void solve(){
     //         cout<<ans.back()[j]<<" ";
     //     cout<<ed;    
     // }
-    string s = to_string(1234);
-    
-
+    char a , b;
+    (a,b) = {'a', 'b'};
 }
 
 int32_t main()

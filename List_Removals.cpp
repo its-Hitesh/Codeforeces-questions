@@ -26,16 +26,45 @@ template<class K,class V> using ht = gp_hash_table<K,V,chash>;
 
 //oset<int>s:s.find_by_order(k):Kth element in "s",s.order_of_key(k):Number of item strictly lessthan k
 template<class T> using oset =tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update> ;
+const int N = 200005;
+int bit[N], n;
+
+void update(int x, int val){
+    while(x <= n){
+          bit[x] += val;
+          x += (x & (-x));
+    }
+}
+  int sum(int x){
+        int res = 0;
+        while(x > 0){
+            res += bit[x];
+            x -= (x & (-x));
+        }   
+        return res ;
+}
 
 void solve(){
-    int n; cin>>n;
-    oset<int> s;
-    int x[n+1]; foo(i,1,n+1) cin>>x[i], s.insert(i);
+    cin>>n;
+    int x[n+1]; foo(i,1,n+1) cin>>x[i], update(i, 1);
     int p[n]; foo(i,0,n) cin>>p[i];
     foo(i,0,n){
-        int a = *s.find_by_order(p[i]-1);
-        s.erase(s.find_by_order(p[i]-1));
-        cout<<x[a]<<" ";
+        int l = 1, r = n;
+        while(l <= r){
+          int mid = l + (r - l) / 2;
+          int z = sum(mid);
+          if(z == p[i] && x[mid] != 0){                          // must look here 
+            cout<<x[mid]<<" ";
+            update(mid, -1);
+            x[mid] = 0;
+            break;
+          }
+          else if(z < p[i]){
+            l = mid + 1;
+          }
+          else r = mid - 1;
+        }
+        
     }
 }
 

@@ -67,10 +67,10 @@ namespace modop {
 using namespace modop;
 void solve(){
     int a, b, c; cin>>a>>b>>c;
-    int ans = mpow(b,c);
-    if(b == 0 && c == 0) ans = 1;
-    ans = mpow(a, ans);
-    cout<<ans<<ed;
+    int A = mpow(a,b), B = mpow(b, c - 1);
+	int ans = mpow(A, B);
+	cout<<ans<<ed;
+
 }
 
 int32_t main()
